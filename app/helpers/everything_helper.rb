@@ -1,0 +1,2 @@
+module EverythingHelper
+end
