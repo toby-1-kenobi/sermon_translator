@@ -7,7 +7,6 @@ class EverythingController < ApplicationController
   end
 
   def translation
-    logger.debug "API KEY #{Rails.application.secrets.G_TRANSLATE_KEY}"
     sermon_chunks = chunk_text_by_sentence(params[:sermon], 3000)
     g_translate_url = 'https://www.googleapis.com/language/translate/v2'
     g_translate_source = 'en'
@@ -19,7 +18,7 @@ class EverythingController < ApplicationController
               "key=#{Rails.application.secrets.G_TRANSLATE_KEY}" +
               "&source=#{g_translate_source}" +
               "&target=#{g_translate_target}" +
-              "&q=#{URI.encode sermon_chunks[0]}"
+              "&q=#{URI.encode chunk}"
       )
       @translation += ' ' + response['data']['translations'][0]['translatedText']
     end
